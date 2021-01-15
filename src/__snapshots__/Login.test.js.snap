@@ -1,0 +1,210 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginTab renders without crashing given the required props 1`] = `
+<Styled(MuiBox)
+  m={2}
+>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="flex-end"
+    container={true}
+    spacing={8}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <Memo([object Object]) />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        autoFocus={true}
+        fullWidth={true}
+        id="username"
+        label="Username"
+        onChange={[Function]}
+        required={true}
+        type="email"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="flex-end"
+    container={true}
+    spacing={8}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <Memo([object Object]) />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        fullWidth={true}
+        id="password"
+        label="Password"
+        onChange={[Function]}
+        required={true}
+        type="password"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="center"
+    container={true}
+    justify="space-between"
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(FormControlLabel))
+        control={
+          <WithStyles(ForwardRef(Checkbox))
+            color="primary"
+          />
+        }
+        label="Remember me"
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        variant="text"
+      >
+        Forgot password ?
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+  <Styled(MuiBox)
+    mt={2}
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      justify="center"
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Login
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+  </Styled(MuiBox)>
+</Styled(MuiBox)>
+`;
+
+exports[`LoginTab renders without crashing given the required props with no data and with error property 1`] = `
+<Styled(MuiBox)
+  m={2}
+>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="flex-end"
+    container={true}
+    spacing={8}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <Memo([object Object]) />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        autoFocus={true}
+        fullWidth={true}
+        id="username"
+        label="Username"
+        onChange={[Function]}
+        required={true}
+        type="email"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="flex-end"
+    container={true}
+    spacing={8}
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <Memo([object Object]) />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(TextField))
+        fullWidth={true}
+        id="password"
+        label="Password"
+        onChange={[Function]}
+        required={true}
+        type="password"
+        value=""
+      />
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="center"
+    container={true}
+    justify="space-between"
+  >
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(FormControlLabel))
+        control={
+          <WithStyles(ForwardRef(Checkbox))
+            color="primary"
+          />
+        }
+        label="Remember me"
+      />
+    </WithStyles(ForwardRef(Grid))>
+    <WithStyles(ForwardRef(Grid))
+      item={true}
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        variant="text"
+      >
+        Forgot password ?
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Grid))>
+  <Styled(MuiBox)
+    mt={2}
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      justify="center"
+    >
+      <WithStyles(ForwardRef(Button))
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Login
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Grid))>
+  </Styled(MuiBox)>
+  <Styled(MuiBox)
+    my={2}
+  >
+    <WithStyles(ForwardRef(Alert))
+      severity="error"
+    >
+      Incorrect Username or password!
+    </WithStyles(ForwardRef(Alert))>
+  </Styled(MuiBox)>
+</Styled(MuiBox)>
+`;
