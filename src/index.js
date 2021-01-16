@@ -10,6 +10,7 @@ import home from './store/reducers/home';
 import posts from './store/reducers/posts';
 import loader from './store/reducers/loader';
 import user from './store/reducers/user';
+import error from './store/reducers/error';
 import {BrowserRouter as Router}from 'react-router-dom';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -27,7 +28,8 @@ const rootReducer=combineReducers({
   homeStore:home,
   postsStore:posts,
   loaderStore:loader,
-  userStore:user
+  userStore:user,
+  errorStore:error
   //categoryStore:categories
 
 })

@@ -8,11 +8,16 @@ import PopularPostList from '../Popular/PopularPostList';
 // import {Link} from 'react-router-dom';
 import * as action from '../../store/actions/index';
 import {connect} from 'react-redux';
-
-
-
+import ErrorBar from '../ErrorBar/ErrorBar';
+// import Snackbar from '@material-ui/core/Snackbar';
+// import Alert from '@material-ui/lab/Alert';
 class  Home extends Component{
 
+ state={
+  // open:true,
+   vertical: 'top',
+   horizontal: 'right',
+ }
  componentDidMount(){
     this.props.loadPopular(this.props.filterType);
   }
@@ -21,8 +26,12 @@ class  Home extends Component{
     this.props.loadPopular(this.props.filterType);
     }
   }
-
+ handleErrorClose=()=>{
+  this.props.hideHomeError();
+ // this.setState({open:false});
+ }
 render(){
+  //const { vertical, horizontal } = this.state;
    return (
    
     <React.Fragment>
@@ -46,7 +55,9 @@ render(){
     </Grid>
     </Grid>
     </Container>
-    
+    { this.props.error &&
+    <ErrorBar open={this.props.error} close={this.handleErrorClose}></ErrorBar>
+    }
     </React.Fragment>
    )
    }
@@ -55,11 +66,14 @@ const mapStateToProps= state=>{
     return {
        popularPosts:state.homeStore.popular,
        filterType:state.homeStore.filterType,
+       error:state.errorStore.errorHomePage
     }
 };
 const mapDispatchToProps= dispatch=>{
     return{
         loadPopular:(param)=>dispatch(action.loadPopular(param)),
+        hideHomeError:()=>dispatch(action.hideHomeError())
     }
 };
+
 export default  connect(mapStateToProps,mapDispatchToProps)(Home);

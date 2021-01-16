@@ -35,3 +35,15 @@ export const LOAD_USER_COMMENTS='LOAD_USER_COMMENTS';
 export const LOAD_USER_COMMENTS_FAILED='LOAD_USER_COMMENTS_FAILED';
 
 export const LOGOUT='LOGOUT';
+
+//All actions related to error reducer
+
+export const SET_ERROR='SET_ERROR';
+export const HIDE_ERROR='HIDE_ERROR';
+
+// export const SET_POST_ERROR='SET_POST_ERROR';
+// export const HIDE_POST_ERROR='HIDE_POST_ERROR';
+
+// export const SET_USER_ERROR='SET_USER_ERROR';
+// export const HIDE_USER_ERROR='HIDE_USER_ERROR';
+//export const END_LOADER='END_LOADER';

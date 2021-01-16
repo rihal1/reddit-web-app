@@ -1,7 +1,7 @@
 
 import * as actionTypes from './actionTypes';
 import EndPointConfig from '../../configuration/EndPointConfig';
-
+import  ErrorConst from '../../constants/ErrorConstants';
 
 export const startLoader=()=>{
   return{
@@ -15,15 +15,24 @@ export const endLoader=()=>{
       loading:false
   }
 };
-export const loadTrendingSuccess=(response)=>{
-  return{
-      type:actionTypes.LOAD_TRENDING_POSTS,
-      trending:response
-  }
-};
-export const loadTrendingError=()=>{
+
+export const setError=()=>{
     return{
-        type:actionTypes.LOAD_TRENDING_POSTS_FAILED
+        type:actionTypes.SET_ERROR,
+        errorType:ErrorConst.Homepage
+    }
+  };
+  export const hideHomeError=()=>{
+    return{
+        type:actionTypes.HIDE_ERROR,
+        errorType:ErrorConst.Homepage
+
+    }
+  };
+  export const loadTrendingSuccess=(response)=>{
+    return{
+        type:actionTypes.LOAD_TRENDING_POSTS,
+        trending:response
     }
   };
   export const loadTrending = () => {
@@ -34,7 +43,7 @@ export const loadTrendingError=()=>{
             const topFourResponse=response.trending_searches.slice(0,4);
             dispatch(loadTrendingSuccess(topFourResponse));
           } catch(error) {
-            dispatch(loadTrendingError(error));
+            dispatch(setError());
           }
     };
 };
@@ -45,11 +54,11 @@ export const loadPopularSuccess=(response)=>{
         popular:response
     }
   };
-  export const loadPopularError=()=>{
-      return{
-          type:actionTypes.LOAD_POPULAR_POSTS_FAILED
-      }
-    };
+  // export const loadPopularError=()=>{
+  //     return{
+  //         type:actionTypes.LOAD_POPULAR_POSTS_FAILED
+  //     }
+  //   };
     export const loadPopular = (param) => {
       
       return async dispatch => {    
@@ -62,7 +71,7 @@ export const loadPopularSuccess=(response)=>{
               dispatch(loadPopularSuccess(list));
               dispatch(endLoader());
             } catch(error) {
-              dispatch(loadPopularError(error));
+              dispatch(setError());
               dispatch(endLoader())
             }
       };
@@ -73,11 +82,11 @@ export const loadPopularSuccess=(response)=>{
         subreddits:response
     }
   };
-  export const loadSubredditsError=()=>{
-      return{
-          type:actionTypes.LOAD_SUBREDDITS_FAILED
-      }
-    };
+  // export const loadSubredditsError=()=>{
+  //     return{
+  //         type:actionTypes.LOAD_SUBREDDITS_FAILED
+  //     }
+  //   };
     export const loadSubreddits = () => {
       return async dispatch => {     
           try {
@@ -86,7 +95,7 @@ export const loadPopularSuccess=(response)=>{
             const list=response.data.children.slice(0,11);
               dispatch(loadSubredditsSuccess(list));
             } catch(error) {
-              dispatch(loadSubredditsError(error));
+              dispatch(setError());
             }
       };
   };

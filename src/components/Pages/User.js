@@ -12,6 +12,8 @@ import AddIcon from '@material-ui/icons/Add';
 import SubredditDescription from '../SubreeditDescription/SubredditDescription';
 import UserCardView from '../UserCardView/UserCardView';
 import CommentList from '../UserComments/CommentList';
+import ErrorBar from '../ErrorBar/ErrorBar';
+
 const styles = theme => ({
     button: {
      width:'100%',
@@ -48,6 +50,10 @@ class User extends Component{
        // this.props.loadComments(name); 
         //this.props.loadUserInfo(name);
       };
+      handleErrorClose=()=>{
+        this.props.hideUserError();
+       // this.setState({open:false});
+       }
     render(){
         const { classes } = this.props;
         const name = this.props.match.params.username;
@@ -76,6 +82,9 @@ class User extends Component{
                 </Grid>
             
             </Grid>
+            { this.props.error &&
+            <ErrorBar open={this.props.error} close={this.handleErrorClose}></ErrorBar>
+            }
             </Container>
         )
     }
@@ -86,14 +95,16 @@ const mapStateToProps= state=>{
      //  subredditPosts:state.postsStore.subredditPosts,
       // filterType:state.homeStore.filterType,
       userInfo:state.userStore.userInfo,
-      comments:state.userStore.comments
+      comments:state.userStore.comments,
+      error:state.errorStore.errorUserPage
     }
 };
 const mapDispatchToProps= dispatch=>{
     return{
        // loadSubredditPosts:(filter,subreddit)=>dispatch(action.loadSubredditPosts(filter,subreddit)),
         loadComments:(username)=>dispatch(action.loadUserComments(username)),
-        loadUserInfo:(username)=>dispatch(action.loadUserInfo(username))       
+        loadUserInfo:(username)=>dispatch(action.loadUserInfo(username)),
+        hideUserError:()=>dispatch(action.hideUserError())       
     }
 };
 

@@ -6,21 +6,23 @@ export {
     loadSubreddits,
     loadTrending,
     loadPopular,
-    setFilter
+    setFilter,
+    hideHomeError
    // startLoader,
 } from './home';
 
 export {
     loadSubredditPosts,
-    loadSubredditInfo
-    
+    loadSubredditInfo,
+    hidePostError
    // startLoader,
 } from './posts';
 
 export {
     loadUserInfo,
     loadUserComments,
-    logout
+    logout,
+    hideUserError
     
    // startLoader,
 } from './user';

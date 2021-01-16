@@ -1,6 +1,7 @@
 
 import * as actionTypes from './actionTypes';
 import EndPointConfig from '../../configuration/EndPointConfig';
+import  ErrorConst from '../../constants/ErrorConstants';
 
 export const startLoader=()=>{
     return{
@@ -14,17 +15,29 @@ export const startLoader=()=>{
         loading:false
     }
   };
+  export const setError=()=>{
+    return{
+        type:actionTypes.SET_ERROR,
+        errorType:ErrorConst.PostPage
+    }
+  };
+  export const hidePostError=()=>{
+    return{
+        type:actionTypes.HIDE_ERROR,
+        errorType:ErrorConst.PostPage
+    }
+  };
 export const loadSubredditInfoSuccess=(response)=>{
     return{
         type:actionTypes.LOAD_SUBREDDIT_INFO,
         subredditInfo:response
     }
   };
-  export const loadSubredditInfoFailed=()=>{
-      return{
-          type:actionTypes.LOAD_SUBREDDIT_INFO_FAILED
-      }
-    };
+  // export const loadSubredditInfoFailed=()=>{
+  //     return{
+  //         type:actionTypes.LOAD_SUBREDDIT_INFO_FAILED
+  //     }
+  //   };
     export const loadSubredditInfo = (param) => {
       
       return async dispatch => {    
@@ -35,7 +48,8 @@ export const loadSubredditInfoSuccess=(response)=>{
             const response= await result.json(); 
               dispatch(loadSubredditInfoSuccess(response.data));
             } catch(error) {
-              dispatch(loadSubredditInfoFailed(error));
+              //dispatch(loadSubredditInfoFailed(error));
+              dispatch(setError());
             }
       };
   };
@@ -45,11 +59,11 @@ export const loadSubredditInfoSuccess=(response)=>{
         subredditPosts:response
     }
   };
-  export const loadSubredditPostsError=()=>{
-      return{
-          type:actionTypes.LOAD_SUBREDDIT_POSTS_FAILED
-      }
-    };
+  // export const loadSubredditPostsError=()=>{
+  //     return{
+  //         type:actionTypes.LOAD_SUBREDDIT_POSTS_FAILED
+  //     }
+  //   };
     export const loadSubredditPosts = (subreddit,filter) => {
       return async dispatch => {     
           try {
@@ -60,7 +74,7 @@ export const loadSubredditInfoSuccess=(response)=>{
               dispatch(loadSubredditPostsSuccess(list));
               dispatch(endLoader());
             } catch(error) {
-              dispatch(loadSubredditPostsError(error));
+              dispatch(setError());
               dispatch(endLoader());
             }
       };

@@ -1,6 +1,7 @@
 
 import * as actionTypes from './actionTypes';
 import EndPointConfig from '../../configuration/EndPointConfig';
+import  ErrorConst from '../../constants/ErrorConstants';
 
 export const startLoader=()=>{
     return{
@@ -19,17 +20,29 @@ export const startLoader=()=>{
         type:actionTypes.LOGOUT
     }
   };
+  export const setError=()=>{
+    return{
+        type:actionTypes.SET_ERROR,
+        errorType:ErrorConst.UserPage
+    }
+  };
+  export const hideUserError=()=>{
+    return{
+        type:actionTypes.HIDE_ERROR,
+        errorType:ErrorConst.UserPage
+    }
+  };
 export const loadUserInfoSuccess=(response)=>{
     return{
         type:actionTypes.LOAD_USER_INFO,
         userInfo:response
     }
   };
-  export const loadUserInfoFailed=()=>{
-      return{
-          type:actionTypes.LOAD_USER_INFO_FAILED
-      }
-    };
+  // export const loadUserInfoFailed=()=>{
+  //     return{
+  //         type:actionTypes.LOAD_USER_INFO_FAILED
+  //     }
+  //   };
     export const loadUserInfo = (param) => {
       
       return async dispatch => {    
@@ -41,7 +54,8 @@ export const loadUserInfoSuccess=(response)=>{
             console.log(response);
               dispatch(loadUserInfoSuccess(response));
             } catch(error) {
-              dispatch(loadUserInfoFailed(error));
+              //dispatch(loadUserInfoFailed(error));
+              dispatch(setError());
             }
       };
   };
@@ -52,11 +66,11 @@ export const loadUserInfoSuccess=(response)=>{
         comments:response
     }
   };
-  export const loadCommentsError=()=>{
-      return{
-          type:actionTypes.LOAD_USER_COMMENTS_FAILED
-      }
-    };
+  // export const loadCommentsError=()=>{
+  //     return{
+  //         type:actionTypes.LOAD_USER_COMMENTS_FAILED
+  //     }
+  //   };
     export const loadUserComments = (param) => {
       return async dispatch => {     
           try {
@@ -65,7 +79,7 @@ export const loadUserInfoSuccess=(response)=>{
               const list=response.data.children;
               dispatch(loadCommentsSuccess(list));
             } catch(error) {
-              dispatch(loadCommentsError(error));
+              dispatch(setError());
             }
       };
   };

@@ -31,13 +31,13 @@ const classes=useStyles();
 
 //    },[props.filterType]); 
   
-   if(props.error){
-    return (
-       <div className={classes.errorBar}> 
-       <Alert severity="error"><span>There is a problem occured in fetching popular posts. !</span></Alert>
-       </div>
-    )
-    }
+  //  if(props.error){
+  //   return (
+  //      <div className={classes.errorBar}> 
+  //      <Alert severity="error"><span>There is a problem occured in fetching popular posts. !</span></Alert>
+  //      </div>
+  //   )
+  //   }
    if(props.loading)
    return <div className={classes.root}><CircularProgress /></div>
    else
@@ -61,7 +61,7 @@ const classes=useStyles();
 const mapStateToProps= state=>{
     return {
       // popularPosts:state.homeStore.popular,
-       error:state.homeStore.error,
+      // error:state.homeStore.error,
        filterType:state.homeStore.filterType,
        loading:state.loaderStore.loading
        

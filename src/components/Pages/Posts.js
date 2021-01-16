@@ -11,6 +11,7 @@ import UserCountView from '../UserCountView/UserCountView';
 import AddIcon from '@material-ui/icons/Add';
 import SubredditDescription from '../SubreeditDescription/SubredditDescription';
 import RichTextEditor from '../RichTextEditor/RichTextEditor';
+import ErrorBar from '../ErrorBar/ErrorBar';
 const styles = theme => ({
     button: {
      width:'100%',
@@ -47,6 +48,11 @@ class Posts extends Component{
       closePostModal = () => {
         this.setState({isOpenPostModal:false});
      };  
+
+     handleErrorClose=()=>{
+        this.props.hidePostError();
+       // this.setState({open:false});
+       }
     render(){
         const { classes } = this.props;
         const name = this.props.match.params.subreddit;
@@ -72,6 +78,9 @@ class Posts extends Component{
           
             </Grid>
         </Grid>
+        { this.props.error &&
+        <ErrorBar open={this.props.error} close={this.handleErrorClose}></ErrorBar>
+        }
         </Container>
         )
     }
@@ -82,13 +91,15 @@ const mapStateToProps= state=>{
        subredditPosts:state.postsStore.subredditPosts,
        filterType:state.homeStore.filterType,
        subredditInfo:state.postsStore.subredditInfo,
-       userInfo:state.userStore.userInfo
+       userInfo:state.userStore.userInfo,
+       error:state.errorStore.errorPostPage
     }
 };
 const mapDispatchToProps= dispatch=>{
     return{
         loadSubredditPosts:(filter,subreddit)=>dispatch(action.loadSubredditPosts(filter,subreddit)),
-        loadSubredditInfo:(subreddit)=>dispatch(action.loadSubredditInfo(subreddit))
+        loadSubredditInfo:(subreddit)=>dispatch(action.loadSubredditInfo(subreddit)),
+        hidePostError:()=>dispatch(action.hidePostError())
     }
 };
 
