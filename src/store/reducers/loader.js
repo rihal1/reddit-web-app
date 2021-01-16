@@ -1,22 +1,32 @@
 import * as actionTypes from '../actions/actionTypes';
 import * as utility from '../../utility/utility'
+import LoaderConst from '../../constants/LoaderConstant';
 
 const initialState={
-    //trending:[],
-    //error: false,
-//    // popular:[],
-//     subreddits:[],
-//     filterType:'hot',
-    loading:false
+    loadingTrending:false,
+    loadingPopular:false,
+    loadingSubreddits:false,
+    loadingUserComments:false,
+   // loadingSubredditPosts:false,
    };
   
 
      const startLoader=(state,action)=>{
-     return utility.updateObject(state,{loading:action.loading});
+     return checkLoaderType(state,action,true);
      }
      const endLoader=(state,action)=>{
-        return utility.updateObject(state,{loading:action.loading});
+      return checkLoaderType(state,action,false);
         }
+   const checkLoaderType=(state,action,input)=>{
+      switch(action.loaderType){
+            case LoaderConst.TrendingLoader: return utility.updateObject(state,{loadingTrending:input});
+            case LoaderConst.PopularLoader: return utility.updateObject(state,{loadingPopular:input});
+            case LoaderConst.SubredditsLoader: return utility.updateObject(state,{loadingSubreddits:input});
+            //case LoaderConst.SubredditPostsLoader: return utility.updateObject(state,{loadingSubredditPosts:input});
+            case LoaderConst.CommentsLoader: return utility.updateObject(state,{loadingUserComments:input});
+            default: return state;
+            }
+      }
      const reducer=(state=initialState,action)=>{    
        switch(action.type){
     //    case actionTypes.LOAD_TRENDING_POSTS: return loadTrendingSuccess(state,action);

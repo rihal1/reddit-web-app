@@ -15,10 +15,5 @@ get_subreddit_posts:(param1,param2)=>{
     return `https://api.reddit.com/user/${param}/comments.json`
     
  }
-
-// get_new_posts:'https://www.reddit.com/r/popular/new.json',
-// get_top_posts:'https://www.reddit.com/r/popular/top.json',
-// get_rising_posts:'https://www.reddit.com/r/popular/top.json',
-// get_controversial_posts:'https://www.reddit.com/r/popular/controversial.json'
 }
 export default EndPointConfig;

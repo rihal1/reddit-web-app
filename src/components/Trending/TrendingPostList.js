@@ -5,9 +5,18 @@ import TrendingPost from './TrendingPost';
 import EndPointConfig from '../../configuration/EndPointConfig';
 import * as action from '../../store/actions/index';
 import {connect} from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+      display: 'flex',
+      justifyContent:'center',
+      alignItems:'center'
+  },
+}));
 const TrendingPostList=(props)=>{
-
+const classes=useStyles();
    // const [trendingState,setTrendingState]=useState([]);
     useEffect(()=>{
     // const fetchData=async()=>{
@@ -28,7 +37,9 @@ const TrendingPostList=(props)=>{
     
     },[]);
 
-    
+   if(props.loading)
+   return <div className={classes.root}><CircularProgress /></div>
+   else
     return(
 
         <Grid container spacing={1} style={{padding:16}}>
@@ -43,10 +54,12 @@ const TrendingPostList=(props)=>{
 const mapStateToProps= state=>{
   return {
      trendingPosts:state.homeStore.trending,
-     error:state.homeStore.error
+     loading:state.loaderStore.loadingTrending
+     //error:state.homeStore.error
      
   }
 };
+
 const mapDispatchToProps= dispatch=>{
   return{
       loadTrending:()=>dispatch(action.loadTrending()),

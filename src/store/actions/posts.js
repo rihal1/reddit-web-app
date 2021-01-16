@@ -2,19 +2,21 @@
 import * as actionTypes from './actionTypes';
 import EndPointConfig from '../../configuration/EndPointConfig';
 import  ErrorConst from '../../constants/ErrorConstants';
+import LoaderConst from '../../constants/LoaderConstant';
 
-export const startLoader=()=>{
-    return{
-        type:actionTypes.START_LOADER,
-        loading:true
-    }
-  };
-  export const endLoader=()=>{
-    return{
-        type:actionTypes.END_LOADER,
-        loading:false
-    }
-  };
+export const startLoader=(type)=>{
+  return{
+      type:actionTypes.START_LOADER,
+      loaderType: type
+  }
+};
+export const endLoader=(type)=>{
+  return{
+      type:actionTypes.END_LOADER,
+      loaderType: type
+  }
+};
+
   export const setError=()=>{
     return{
         type:actionTypes.SET_ERROR,
@@ -43,7 +45,7 @@ export const loadSubredditInfoSuccess=(response)=>{
       return async dispatch => {    
         // dispatch({type:actionTypes.START_LOADER});
           try {
-            dispatch(startLoader());
+            //dispatch(startLoader());
             const result = await fetch(EndPointConfig.get_subreddit_info(param));
             const response= await result.json(); 
               dispatch(loadSubredditInfoSuccess(response.data));
@@ -67,15 +69,15 @@ export const loadSubredditInfoSuccess=(response)=>{
     export const loadSubredditPosts = (subreddit,filter) => {
       return async dispatch => {     
           try {
-            dispatch(startLoader());
+            dispatch(startLoader(LoaderConst.PopularLoader));
             const result = await fetch(EndPointConfig.get_subreddit_posts(subreddit,filter));
             const response= await result.json(); 
             const list=response.data.children;
               dispatch(loadSubredditPostsSuccess(list));
-              dispatch(endLoader());
+              dispatch(endLoader(LoaderConst.PopularLoader));
             } catch(error) {
               dispatch(setError());
-              dispatch(endLoader());
+              dispatch(endLoader(LoaderConst.PopularLoader));
             }
       };
   };

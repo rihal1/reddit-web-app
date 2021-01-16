@@ -3,7 +3,7 @@ import * as utility from '../../utility/utility'
 
 const initialState={
    // trending:[],
-    error: false,
+    //error: false,
     //popular:[],
     userInfo:{},
     comments:[]
@@ -20,7 +20,7 @@ const loadCommentsSuccess=(state,action)=>{
 //   return  utility.updateObject(state,{error:true})
 //   }
 const loadUserInfoSuccess=(state,action)=>{
-    return utility.updateObject(state,{userInfo:action.userInfo,error:false});
+    return utility.updateObject(state,{userInfo:action.userInfo});
    
   }
   // const loadUserInfoError=(state)=>{

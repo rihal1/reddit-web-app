@@ -7,14 +7,17 @@ export {
     loadTrending,
     loadPopular,
     setFilter,
-    hideHomeError
-   // startLoader,
+    hideHomeError,
+    //startLoader,
+    //endLoader
 } from './home';
 
 export {
     loadSubredditPosts,
     loadSubredditInfo,
-    hidePostError
+    hidePostError,
+    //startLoader,
+    //endLoader
    // startLoader,
 } from './posts';
 
@@ -22,7 +25,8 @@ export {
     loadUserInfo,
     loadUserComments,
     logout,
-    hideUserError
+    hideUserError,
+    //startLoader,
     
    // startLoader,
 } from './user';

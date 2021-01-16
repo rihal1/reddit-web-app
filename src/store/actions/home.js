@@ -2,17 +2,18 @@
 import * as actionTypes from './actionTypes';
 import EndPointConfig from '../../configuration/EndPointConfig';
 import  ErrorConst from '../../constants/ErrorConstants';
+import LoaderConst from '../../constants/LoaderConstant';
 
-export const startLoader=()=>{
+export const startLoader=(type)=>{
   return{
       type:actionTypes.START_LOADER,
-      loading:true
+      loaderType: type
   }
 };
-export const endLoader=()=>{
+export const endLoader=(type)=>{
   return{
       type:actionTypes.END_LOADER,
-      loading:false
+      loaderType: type
   }
 };
 
@@ -38,12 +39,15 @@ export const setError=()=>{
   export const loadTrending = () => {
     return async dispatch => {     
         try {
+            dispatch(startLoader(LoaderConst.TrendingLoader));
             const result = await fetch(EndPointConfig.get_trending_post);
             const response= await result.json(); 
             const topFourResponse=response.trending_searches.slice(0,4);
             dispatch(loadTrendingSuccess(topFourResponse));
+            dispatch(endLoader(LoaderConst.TrendingLoader));
           } catch(error) {
             dispatch(setError());
+            dispatch(endLoader(LoaderConst.TrendingLoader));
           }
     };
 };
@@ -64,15 +68,15 @@ export const loadPopularSuccess=(response)=>{
       return async dispatch => {    
         // dispatch({type:actionTypes.START_LOADER});
           try {
-            dispatch(startLoader());
+            dispatch(startLoader(LoaderConst.PopularLoader));
             const result = await fetch(EndPointConfig.get_popular_posts.concat(`${param}.json`));
             const response= await result.json(); 
             const list=response.data.children;
               dispatch(loadPopularSuccess(list));
-              dispatch(endLoader());
+              dispatch(endLoader(LoaderConst.PopularLoader));
             } catch(error) {
               dispatch(setError());
-              dispatch(endLoader())
+              dispatch(endLoader(LoaderConst.PopularLoader))
             }
       };
   };
@@ -90,12 +94,15 @@ export const loadPopularSuccess=(response)=>{
     export const loadSubreddits = () => {
       return async dispatch => {     
           try {
+            dispatch(startLoader(LoaderConst.SubredditsLoader));
             const result = await fetch(EndPointConfig.get_subreddit_list);
             const response= await result.json(); 
             const list=response.data.children.slice(0,11);
               dispatch(loadSubredditsSuccess(list));
+              dispatch(endLoader(LoaderConst.SubredditsLoader));
             } catch(error) {
               dispatch(setError());
+              dispatch(endLoader(LoaderConst.PopularLoader));
             }
       };
   };

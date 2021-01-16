@@ -67,18 +67,6 @@ class User extends Component{
                 </Grid>
                 <Grid item xs={12} md={7} sm={12} lg={7}>
                 <CommentList comments={this.props.comments}></CommentList>
-                {
-                this.props.comments.length==0 && 
-                <Paper >
-                <Grid container justify="center" alignItems="center" direction="column" style={{minHeight:'85vh'}}>
-                <Grid item xs={12} md={12} sm={12}> 
-                <Typography variant="h4">
-                 User has no Comments...
-                </Typography>
-                </Grid>
-                 </Grid>
-                </Paper>
-              }
                 </Grid>
             
             </Grid>

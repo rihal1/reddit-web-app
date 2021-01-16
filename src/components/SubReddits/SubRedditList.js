@@ -6,13 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Divider,ListSubheader,Paper } from '@material-ui/core';
 import * as action from '../../store/actions/index';
 import {connect} from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      //width: '100%',
-      //maxWidth: 360,
-     // backgroundColor: "white",
-    //  boxShadow:"0px 0px 12px 0px #888888"
+        display: 'flex',
+        justifyContent:'center',
+        alignItems:'center'
     },
   }));
 const SubRedditList=(props)=>{
@@ -36,8 +36,11 @@ const classes=useStyles();
     props.loadSubreddits();
 
    },[]); 
+   if(props.loading)
+   return <div className={classes.root}><CircularProgress /></div>
+   else
    return (
-   <List className={classes.root}>
+   <List>
         
        {
         props.subRedditList.map((item,index)=>(
@@ -56,7 +59,8 @@ const classes=useStyles();
 const mapStateToProps= state=>{
     return {
        subRedditList:state.homeStore.subreddits,
-       error:state.homeStore.error,
+       loading: state.loaderStore.loadingSubreddits
+       //error:state.homeStore.error,
        
     }
 };

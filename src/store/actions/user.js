@@ -2,19 +2,20 @@
 import * as actionTypes from './actionTypes';
 import EndPointConfig from '../../configuration/EndPointConfig';
 import  ErrorConst from '../../constants/ErrorConstants';
+import LoaderConst from '../../constants/LoaderConstant';
 
-export const startLoader=()=>{
-    return{
-        type:actionTypes.START_LOADER,
-        loading:true
-    }
-  };
-  export const endLoader=()=>{
-    return{
-        type:actionTypes.END_LOADER,
-        loading:false
-    }
-  };
+export const startLoader=(type)=>{
+  return{
+      type:actionTypes.START_LOADER,
+      loaderType: type
+  }
+};
+export const endLoader=(type)=>{
+  return{
+      type:actionTypes.END_LOADER,
+      loaderType: type
+  }
+};
   export const logout=()=>{
     return{
         type:actionTypes.LOGOUT
@@ -51,7 +52,7 @@ export const loadUserInfoSuccess=(response)=>{
             //dispatch(startLoader());
             const result = await fetch(EndPointConfig.get_user_info(param));
             const response= await result.json(); 
-            console.log(response);
+            //console.log(response);
               dispatch(loadUserInfoSuccess(response));
             } catch(error) {
               //dispatch(loadUserInfoFailed(error));
@@ -74,12 +75,15 @@ export const loadUserInfoSuccess=(response)=>{
     export const loadUserComments = (param) => {
       return async dispatch => {     
           try {
+            dispatch(startLoader(LoaderConst.CommentsLoader));
               const result = await fetch(EndPointConfig.get_user_comments(param));
               const response= await result.json(); 
               const list=response.data.children;
               dispatch(loadCommentsSuccess(list));
+              dispatch(endLoader(LoaderConst.CommentsLoader));
             } catch(error) {
               dispatch(setError());
+              dispatch(endLoader(LoaderConst.CommentsLoader));
             }
       };
   };

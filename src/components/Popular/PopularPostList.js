@@ -63,7 +63,7 @@ const mapStateToProps= state=>{
       // popularPosts:state.homeStore.popular,
       // error:state.homeStore.error,
        filterType:state.homeStore.filterType,
-       loading:state.loaderStore.loading
+       loading:state.loaderStore.loadingPopular
        
     }
 };

@@ -1,5 +1,4 @@
 import WhatshotIcon from '@material-ui/icons/Whatshot';
-import FiberNewIcon from '@material-ui/icons/FiberNew';
 import GradeIcon from '@material-ui/icons/Grade';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import BarChartIcon from '@material-ui/icons/BarChart';
