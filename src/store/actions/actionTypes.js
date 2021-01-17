@@ -40,10 +40,3 @@ export const LOGOUT='LOGOUT';
 
 export const SET_ERROR='SET_ERROR';
 export const HIDE_ERROR='HIDE_ERROR';
-
-// export const SET_POST_ERROR='SET_POST_ERROR';
-// export const HIDE_POST_ERROR='HIDE_POST_ERROR';
-
-// export const SET_USER_ERROR='SET_USER_ERROR';
-// export const HIDE_USER_ERROR='HIDE_USER_ERROR';
-//export const END_LOADER='END_LOADER';

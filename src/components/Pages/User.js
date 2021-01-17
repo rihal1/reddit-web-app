@@ -1,100 +1,89 @@
 import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
-import { Typography,Grid, Container, Button ,Paper} from '@material-ui/core';
-import AvatarCustom from '../Avatar/AvatarCustom';
-import PostHeader from '../SubredditPageHeader/SubredditPageHeader';
-import FilterComp from '../FilterComp/FilterComp';
-import PopularPostList from '../Popular/PopularPostList';
+import { Grid, Container } from '@material-ui/core';
 import * as action from '../../store/actions/index';
-import {connect} from 'react-redux';
-import UserCountView from '../UserCountView/UserCountView';
-import AddIcon from '@material-ui/icons/Add';
-import SubredditDescription from '../SubreeditDescription/SubredditDescription';
+import { connect } from 'react-redux';
 import UserCardView from '../UserCardView/UserCardView';
 import CommentList from '../UserComments/CommentList';
 import ErrorBar from '../ErrorBar/ErrorBar';
 
-const styles = theme => ({
-    button: {
-     width:'100%',
-     marginBottom:16
-    },
-    
-  });
-class User extends Component{
-    state={
-        username:""
-    }
+const styles = () => ({
+  button: {
+    width: '100%',
+    marginBottom: 16
+  }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-      if(prevState.username!==nextProps.match.params.username){
-        nextProps.loadUserInfo(nextProps.match.params.username);
-        nextProps.loadComments(nextProps.match.params.username); 
-       
-      }
-    }
+});
 
-    componentDidMount(){
-        const name = this.props.match.params.username;
-        this.setState({username:name});
-        this.props.loadUserInfo(name);
-        this.props.loadComments(name); 
-       
-        //this.props.loadSubredditInfo(name);
-      };
-      componentDidUpdate(prevProps){
-       // if(prevProps.userInfo)
-        //const name = this.props.match.params.username;
-       // this.props.loadComments(name); 
-      // const name = this.props.match.params.username;
-       // this.props.loadComments(name); 
-        //this.props.loadUserInfo(name);
-      };
-      handleErrorClose=()=>{
-        this.props.hideUserError();
-       // this.setState({open:false});
-       }
-    render(){
-        const { classes } = this.props;
-        const name = this.props.match.params.username;
-        return(
-            <Container>
-            <Grid container spacing={1}>
-                <Grid item xs={12} md={5} sm={12} lg={5}>
-                    {
-                      this.props.userInfo.data && <UserCardView userInfo={this.props.userInfo}></UserCardView>
-                    }
-                </Grid>
-                <Grid item xs={12} md={7} sm={12} lg={7}>
-                <CommentList comments={this.props.comments}></CommentList>
-                </Grid>
-            
-            </Grid>
-            { this.props.error &&
-            <ErrorBar open={this.props.error} close={this.handleErrorClose}></ErrorBar>
+//User Page Component
+class User extends Component {
+  state = {
+    username: ""
+  }
+
+  //update the username when props username changes
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.username !== nextProps.match.params.username) {
+      nextProps.loadUserInfo(nextProps.match.params.username);
+      nextProps.loadComments(nextProps.match.params.username);
+
+    }
+    return { username: nextProps.match.params.username };
+  }
+  //load the userInfo and comments in mounting phase
+  componentDidMount() {
+    const name = this.props.match.params.username;
+    this.setState({ username: name });
+    this.props.loadUserInfo(name);
+    this.props.loadComments(name);
+
+  };
+  //close the errorBar in the page, if any error occures
+  handleErrorClose = () => {
+    this.props.hideUserError();
+  }
+  render() {
+    const { classes } = this.props;
+    const name = this.props.match.params.username;
+    return (
+      <Container>
+        <Grid container spacing={1}>
+          {/* column for showing the user info */}
+          <Grid item xs={12} md={5} sm={12} lg={5}>
+            {
+              this.props.userInfo.data && <UserCardView userInfo={this.props.userInfo}></UserCardView>
             }
-            </Container>
-        )
-    }
+          </Grid>
+          {/* column for showing the user comments */}
+          <Grid item xs={12} md={7} sm={12} lg={7}>
+            <CommentList comments={this.props.comments}></CommentList>
+          </Grid>
+
+        </Grid>
+        { this.props.error &&
+          <ErrorBar open={this.props.error} close={this.handleErrorClose}></ErrorBar>
+        }
+      </Container>
+    )
+  }
 }
 
-const mapStateToProps= state=>{
-    return {
-     //  subredditPosts:state.postsStore.subredditPosts,
-      // filterType:state.homeStore.filterType,
-      userInfo:state.userStore.userInfo,
-      comments:state.userStore.comments,
-      error:state.errorStore.errorUserPage
-    }
+const mapStateToProps = state => {
+  return {
+
+    userInfo: state.userStore.userInfo,
+    comments: state.userStore.comments,
+    error: state.errorStore.errorUserPage
+  }
 };
-const mapDispatchToProps= dispatch=>{
-    return{
-       // loadSubredditPosts:(filter,subreddit)=>dispatch(action.loadSubredditPosts(filter,subreddit)),
-        loadComments:(username)=>dispatch(action.loadUserComments(username)),
-        loadUserInfo:(username)=>dispatch(action.loadUserInfo(username)),
-        hideUserError:()=>dispatch(action.hideUserError())       
-    }
+const mapDispatchToProps = dispatch => {
+  return {
+
+    loadComments: (username) => dispatch(action.loadUserComments(username)),
+    loadUserInfo: (username) => dispatch(action.loadUserInfo(username)),
+    hideUserError: () => dispatch(action.hideUserError())
+  }
 };
 
-export default  connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(User));
-// export default withStyles(styles, { withTheme: true })(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(User));
+

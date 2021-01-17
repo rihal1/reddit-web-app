@@ -1,9 +1,6 @@
-import React, { useEffect,useState } from 'react';
-import List from '@material-ui/core/List';
-import EndPointConfig from '../../configuration/EndPointConfig';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Divider,ListSubheader,Paper,Grid,Typography} from '@material-ui/core';
-import * as action from '../../store/actions/index';
+import { Divider,Paper} from '@material-ui/core';
 import {connect} from 'react-redux';
 import Comment from './Comment';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -15,12 +12,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems:'center'
   },
   }));
+
+//Component to show the list of user comments in user page
 const CommentList=(props)=>{
 const classes=useStyles();
- //const [subRedditList,setSubReddit]=useState([]);
-//    useEffect(()=>{
-  
-//    },[]); 
+
  if(props.loading)
    return <div className={classes.root}><CircularProgress /></div>
    else
@@ -43,10 +39,7 @@ const classes=useStyles();
 }
 const mapStateToProps= state=>{
     return {
-      loading: state.loaderStore.loadingUserComments
-       //subRedditList:state.homeStore.subreddits,
-       //error:state.userStore.error,
-       
+      loading: state.loaderStore.loadingUserComments      
     }
 };
 

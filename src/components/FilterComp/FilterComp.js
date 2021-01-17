@@ -1,89 +1,140 @@
-import React, { useEffect } from 'react'
-import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
-import {makeStyles} from '@material-ui/core/styles';
-import {Paper,Link,Box} from '@material-ui/core';
-import filterData from '../../constants/FilterConstants';
-import { Typography } from '@material-ui/core';
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Avatar, Button } from '@material-ui/core';
 import * as action from '../../store/actions/index';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import GradeIcon from '@material-ui/icons/Grade';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import BarChartIcon from '@material-ui/icons/BarChart';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         justifyContent: 'center',
-        padding:theme.spacing(4),
-        flexDirection:'row',
-        flexWrap:'wrap',
-       // borderWidth:1,
-        //borderColor:'grey',
-        //borderStyle: 'solid',
-        //marginTop : theme.spacing(2),
-        backgroundColor:theme.palette.background.paper
-        
+        padding: theme.spacing(4),
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        backgroundColor: theme.palette.background.paper
+
     },
-    chip:{
-       // marginRight:10,
-       // marginLeft:10,
-        textTransform:'capitalize',
-        //fontWeight:'bold'
+    chip: {
+        textTransform: 'capitalize',
+        borderRadius: 20,
+        height: 40,
+        fontWeight: 'bold'
+    },
+    avatar: {
+        height: 30,
+        width: 30,
     }
 }));
 
+//  Filter component for filtering the posts with filtertypes as 
+// ('Hot','New','Controversial','Rising')
 
 const FilterComp = (props) => {
     const classes = useStyles();
-    const handleClick = (param) => {
-        //event.preventDefault();
-        props.setFilter(param);
-    };
-    
-    useEffect(()=>{
+    //Filter data
+    const [filterData, setFilterData] = useState([
+        {
+            label: 'hot',
+            avatar: <WhatshotIcon color="secondary"></WhatshotIcon>,
+            selected: true,
+            classNames: [classes.chip]
+        },
+        {
+            label: 'new',
+            avatar: <GradeIcon color="secondary" ></GradeIcon>,
+            selected: false,
 
-        handleClick(props.filterType);
-        
-    },[]);
+            classNames: [classes.chip]
+        },
+        {
+            label: 'controversial',
+            avatar: 'c',
+            selected: false,
+            classNames: [classes.chip]
+        },
+        {
+            label: 'top',
+            avatar: <BarChartIcon color="secondary" ></BarChartIcon>,
+            selected: false,
+            classNames: [classes.chip]
+
+        },
+        {
+            label: 'rising',
+            avatar: <TrendingUpIcon color="secondary" ></TrendingUpIcon>,
+            selected: false,
+            classNames: [classes.chip]
+
+        }
+    ]);
+
+    //sets the type of the filter for loading data and handle the selection of the filter
+    const handleClick = (param) => {
+        let copyFilterData = [...filterData];
+        copyFilterData = copyFilterData.map(item => {
+            item.selected = false;
+            return item;
+        });
+        let index = copyFilterData.findIndex(item => item.label === param.label);
+        copyFilterData[index].selected = true;
+        setFilterData(copyFilterData);
+        props.setFilter(param.label);
+    };
+
     return (
         <div className={classes.root} >
-        {
-            filterData.map(item=>(
-               
-                item.label==='controversial'?
-                
-                <Box mx={1} fontWeight="bold">
-                <Chip key={item.label} className={classes.chip}
-                avatar={<Avatar>{item.avatar}</Avatar>}
-                label={item.label}
-                onClick={()=>{handleClick(item.label)}}
-                variant="outlined" />
-                </Box>
-            :
-            <Box mx={1} fontWeight="bold">
-            <Chip key={item.label} className={classes.chip}
-            avatar={<Avatar>{item.avatar}</Avatar>}
-            label={item.label}
-            onClick={()=>{handleClick(item.label)}}
-            variant="outlined"
-            />
-            </Box>
-            ))
-            
-        }
-      
+            {
+                filterData.map(item => {
+
+                    return (item.label === 'controversial' ?
+
+
+                        <Box mx={1}>
+                            <Button key={item.label}
+                                variant={item.selected ? 'contained' : 'outlined'}
+                                className={classes.chip}
+                                startIcon={<Avatar className={classes.avatar}>{item.avatar}</Avatar>}
+                                onClick={() => { handleClick(item) }}
+                            >
+                                {item.label}
+                            </Button>
+                        </Box>
+                        :
+                        <Box mx={1}>
+                            <Button key={item.label}
+                                variant={item.selected ? 'contained' : 'outlined'}
+                                className={classes.chip}
+                                startIcon={<Avatar className={classes.avatar}>{item.avatar}</Avatar>}
+                                onClick={() => { handleClick(item) }}
+                            >
+                                {item.label}
+                            </Button>
+                        </Box>
+                    )
+                })
+
+            }
+
         </div>
     )
 }
 
-const mapStateToProps= state=>{
+//maps the filterType stste to component property
+const mapStateToProps = state => {
     return {
-       filterType:state.homeStore.filterType,
-       //error:state.homeStore.error
-       
+        filterType: state.homeStore.filterType,
+
+
     }
-  };
-  const mapDispatchToProps= dispatch=>{
-    return{
-        setFilter:(param)=>dispatch(action.setFilter(param)),
+};
+//maps the setFilter action to props
+const mapDispatchToProps = dispatch => {
+    return {
+        setFilter: (param) => dispatch(action.setFilter(param)),
     }
-  };
-  export default connect(mapStateToProps,mapDispatchToProps)(FilterComp);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FilterComp);
