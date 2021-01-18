@@ -74,7 +74,7 @@ export const loadPopular = (param) => {
 
     try {
       dispatch(startLoader(LoaderConst.PopularLoader));
-      const result = await fetch(EndPointConfig.get_popular_posts.concat(`${param}.json`));
+      const result = await fetch(EndPointConfig.get_popular_posts(param));
       const response = await result.json();
       const list = response.data.children;
       dispatch(loadPopularSuccess(list));

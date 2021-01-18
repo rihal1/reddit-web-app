@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PopularPost from './PopularPost';
 import { connect } from 'react-redux';
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 //Component for showing the list of popular posts
 const PopularPostList = (props) => {
   const classes = useStyles();
+
 
   //loader for showing the popular posts
   if (props.loading)

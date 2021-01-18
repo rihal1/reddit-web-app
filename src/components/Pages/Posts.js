@@ -11,6 +11,8 @@ import AddIcon from '@material-ui/icons/Add';
 import SubredditDescription from '../SubreeditDescription/SubredditDescription';
 import RichTextEditor from '../RichTextEditor/RichTextEditor';
 import ErrorBar from '../ErrorBar/ErrorBar';
+import CommentList from '../UserComments/CommentList';
+import PostView from '../PostView/PostView';
 
 const styles = () => ({
     button: {
@@ -52,6 +54,10 @@ class Posts extends Component {
         this.props.hidePostError();
 
     }
+
+    componentWillUnmount() {
+        this.props.hideCommentsSection();
+    }
     render() {
         const { classes } = this.props;
         const name = this.props.match.params.subreddit;
@@ -61,8 +67,18 @@ class Posts extends Component {
                 <Grid container spacing={1}>
                     {/* column for loading popular posts with filter */}
                     <Grid item xs={12} sm={12} md={9} lg={9}>
-                        <FilterComp></FilterComp>
-                        <PopularPostList posts={this.props.subredditPosts}></PopularPostList>
+                        {!this.props.isCommentClicked &&
+                            <React.Fragment>
+                                <FilterComp></FilterComp>
+                                <PopularPostList posts={this.props.subredditPosts}></PopularPostList>
+                            </React.Fragment>
+                        }
+                        {this.props.isCommentClicked &&
+                            <React.Fragment>
+                                <PostView item={this.props.subredditPostView}></PostView>
+                                <CommentList comments={this.props.subredditPostComments} commentType="P"></CommentList>
+                            </React.Fragment>
+                        }
                     </Grid>
                     {/* column for showing subreddit info  */}
                     <Grid item xs={12} sm={12} md={3} lg={3}>
@@ -93,14 +109,19 @@ const mapStateToProps = state => {
         filterType: state.homeStore.filterType,
         subredditInfo: state.postsStore.subredditInfo,
         userInfo: state.userStore.userInfo,
-        error: state.errorStore.errorPostPage
+        error: state.errorStore.errorPostPage,
+        subredditPostComments: state.postsStore.subredditPostComments,
+        isCommentClicked: state.postsStore.isCommentClicked,
+        subredditPostView: state.postsStore.subredditPostView
     }
 };
 const mapDispatchToProps = dispatch => {
     return {
         loadSubredditPosts: (filter, subreddit) => dispatch(action.loadSubredditPosts(filter, subreddit)),
         loadSubredditInfo: (subreddit) => dispatch(action.loadSubredditInfo(subreddit)),
-        hidePostError: () => dispatch(action.hidePostError())
+        hidePostError: () => dispatch(action.hidePostError()),
+        hideCommentsSection: () => dispatch(action.hideCommentsSection())
+
     }
 };
 

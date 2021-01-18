@@ -11,6 +11,9 @@ export {
     loadSubredditPosts,
     loadSubredditInfo,
     hidePostError,
+    loadSubredditPostComments,
+    hideCommentsSection,
+    loadSubredditPostView
 } from './posts';
 
 export {

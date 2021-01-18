@@ -28,6 +28,7 @@ class Home extends Component {
   handleErrorClose = () => {
     this.props.hideHomeError();
   }
+
   render() {
 
     return (
@@ -41,6 +42,7 @@ class Home extends Component {
               <TrendingPostList trendingPosts={this.props.trendingPosts}></TrendingPostList>
               <FilterComp></FilterComp>
               <PopularPostList posts={this.props.popularPosts}></PopularPostList>
+
             </Grid>
             {/* column for loading top 10 communities */}
             <Grid item xs={12} sm={12} md={3} >
@@ -69,8 +71,8 @@ const mapStateToProps = state => {
     popularPosts: state.homeStore.popular,
     filterType: state.homeStore.filterType,
     error: state.errorStore.errorHomePage,
-    subRedditList:state.homeStore.subreddits,
-    trendingPosts:state.homeStore.trending,
+    subRedditList: state.homeStore.subreddits,
+    trendingPosts: state.homeStore.trending,
   }
 };
 //maps the redux action creators to props
@@ -78,8 +80,8 @@ const mapDispatchToProps = dispatch => {
   return {
     loadPopular: (param) => dispatch(action.loadPopular(param)),
     hideHomeError: () => dispatch(action.hideHomeError()),
-    loadSubreddits:()=>dispatch(action.loadSubreddits()),
-    loadTrending:()=>dispatch(action.loadTrending()),
+    loadSubreddits: () => dispatch(action.loadSubreddits()),
+    loadTrending: () => dispatch(action.loadTrending()),
   }
 };
 

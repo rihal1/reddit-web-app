@@ -5,9 +5,12 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { Typography, Paper, Box } from '@material-ui/core';
 
 //Component for a single Comment for Comment List
-const Comment = ({ item }) => {
+const Comment = ({ item, commentType }) => {
   const date = new Date(item.created_utc * 1000);
-
+  let replyCount = 0;
+  if (item.replies && item.replies.data) {
+    replyCount = item.replies.data.children.length;
+  }
   return (
 
     <Paper>
@@ -22,22 +25,31 @@ const Comment = ({ item }) => {
 
             </Box>
           </Grid>
-          <Grid item xs={11} md={11} sm={11}>
+          <Grid item xs={10} md={10} sm={10}>
             <Typography variant="body1" color="secondary">
               {item.body}
             </Typography>
             <Grid container>
-              <Grid item xs={5} md={5} sm={5}>
+              <Grid item xs={3} md={3} sm={3}>
                 <Box mt={2}>
                   <Typography variant="subtitle2" color="textSecondary">
-                    {item.subreddit_name_prefixed}
+                    {commentType === 'P' ? item.author_fullname : item.subreddit_name_prefixed}
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={7} md={7} sm={7}>
+              {commentType === 'P' &&
+                <Grid item xs={5} md={5} sm={5}>
+                  <Box mt={2}>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      {replyCount} more Replies
+                  </Typography>
+                  </Box>
+                </Grid>
+              }
+              <Grid item xs={4} md={4} sm={4}>
                 <Box mt={2}>
                   <Typography variant="subtitle2" color="textSecondary">
-                    {date.toDateString("en-US")}
+                    Posted at {date.toDateString("en-US")}
                   </Typography>
                 </Box>
               </Grid>

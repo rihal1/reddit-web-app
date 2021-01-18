@@ -32,6 +32,7 @@ export const hidePostError = () => {
     errorType: ErrorConst.PostPage
   }
 };
+
 //load subreddit info success action creator for Posts Page
 export const loadSubredditInfoSuccess = (response) => {
   return {
@@ -79,6 +80,41 @@ export const loadSubredditPosts = (subreddit, filter) => {
   };
 };
 
+//load subreddit post comments success action creator for Posts Page
+export const loadSubredditPostCommentsSuccess = (response) => {
+  return {
+    type: actionTypes.LOAD_SUBREDDIT_POST_COMMENTS,
+    subredditPostComments: response
+  }
+};
+//api call for loading a specific post comments in thunk middleware
+export const loadSubredditPostComments = (subreddit, id) => {
+  return async dispatch => {
+    try {
+      dispatch(startLoader(LoaderConst.PopularLoader));
+      const result = await fetch(EndPointConfig.get_post_comments(subreddit, id));
+      const response = await result.json();
+      const list = response[1].data.children;
+      dispatch(loadSubredditPostCommentsSuccess(list));
+      dispatch(endLoader(LoaderConst.PopularLoader));
+    } catch (error) {
+      dispatch(setError());
+      dispatch(endLoader(LoaderConst.PopularLoader));
+    }
+  };
+};
 
+//hide subreddit comments  action creator for Posts Page
+export const hideCommentsSection = () => {
+  return {
+    type: actionTypes.HIDE_SUBREDDIT_POST_COMMENTS
+  }
+};
 
-
+//load subreddit post view  action creator for Posts Page
+export const loadSubredditPostView = (data) => {
+  return {
+    type: actionTypes.LOAD_SUBREDDIT_POST_VIEW,
+    subredditPostView:data
+  }
+};

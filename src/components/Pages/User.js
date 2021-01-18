@@ -56,7 +56,7 @@ class User extends Component {
           </Grid>
           {/* column for showing the user comments */}
           <Grid item xs={12} md={7} sm={12} lg={7}>
-            <CommentList comments={this.props.comments}></CommentList>
+            <CommentList comments={this.props.comments} commentType="U"></CommentList>
           </Grid>
 
         </Grid>

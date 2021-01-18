@@ -48,8 +48,9 @@ const NavBar = (props) => {
   };
 
   //close the Navbar menu
-  const handleClose = (option) => {
+  const handleClose = (event, option) => {
     if (option === 'login') {
+      event.preventDefault();
       setLoginModalOpen(true);
     }
     else if (option === 'logout') {
@@ -106,7 +107,7 @@ const NavBar = (props) => {
               {
                 !props.userInfo.data &&
                 <Link variant="subtitle1" style={{ textDecoration: 'none' }} to="">
-                  <MenuItem onClick={() => handleClose('login')}><ExitToAppIcon />Login/Sign Up</MenuItem>
+                  <MenuItem onClick={(e) => handleClose(e, 'login')}><ExitToAppIcon />Login/Sign Up</MenuItem>
                 </Link>
               }
 
@@ -114,14 +115,14 @@ const NavBar = (props) => {
                 props.userInfo.data &&
                 <Link variant="subtitle1" style={{ textDecoration: 'none' }}
                   to={`/reddit/user/${name}`}>
-                  <MenuItem onClick={() => handleClose('profile')}><FaceIcon></FaceIcon>Profile</MenuItem>
+                  <MenuItem onClick={(e) => handleClose(e, 'profile')}><FaceIcon></FaceIcon>Profile</MenuItem>
                 </Link>
               }
               {
                 props.userInfo.data &&
                 <Link variant="subtitle1" style={{ textDecoration: 'none' }}
                   to={`/reddit`}>
-                  <MenuItem onClick={() => handleClose('logout')}><ExitToAppIcon></ExitToAppIcon>Logout</MenuItem>
+                  <MenuItem onClick={(e) => handleClose(e, 'logout')}><ExitToAppIcon></ExitToAppIcon>Logout</MenuItem>
                 </Link>
               }
 

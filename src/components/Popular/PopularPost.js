@@ -7,6 +7,9 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
 import * as utility from '../../utility/utility';
+import * as action from '../../store/actions/index';
+import { connect } from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
   cover: {
     width: '100%',
@@ -21,11 +24,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Single Post Component
-const PopularPost = ({ item }) => {
+const PopularPost = (props) => {
+  const subreddit_name = props.item.data.subreddit_name_prefixed.split('/')[1];
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
-  const chip = <Chip label={item.data.link_flair_text} style={{ marginLeft: 10 }} />;
+  const chip = <Chip label={props.item.data.link_flair_text} style={{ marginLeft: 10 }} />;
 
   //default Image for showing in post bar
   let defaultImage = (<Grid container className={classes.deafultImage} alignItems="center" justify="center" direction="column" spacing={0}>
@@ -35,14 +39,20 @@ const PopularPost = ({ item }) => {
   </Grid>);
 
   // cahnge the defaultImage to original thumnail of the post
-  if (item.data.thumbnail && (item.data.thumbnail.split('.').includes('jpg') ||
-    item.data.thumbnail.split('.').includes('png'))) {
+  if (props.item.data.thumbnail && (props.item.data.thumbnail.split('.').includes('jpg') ||
+    props.item.data.thumbnail.split('.').includes('png'))) {
 
     defaultImage = <img
       className={classes.cover}
-      src={item.data.thumbnail}
+      src={props.item.data.thumbnail}
 
     />;
+  }
+
+  const commentsClick = (e) => {
+    e.preventDefault();
+    props.loadSubredditPostComments(subreddit_name, props.item.data.id);
+    props.loadSubredditPostView(props.item);
   }
 
   return (
@@ -56,7 +66,7 @@ const PopularPost = ({ item }) => {
               <Link href="#" onClick={preventDefault}>
                 <ThumbUpAltIcon color="primary"></ThumbUpAltIcon>
               </Link>
-              <Typography variant="subtitle2">{utility.numFormatter(item.data.ups)}</Typography>
+              <Typography variant="subtitle2">{utility.numFormatter(props.item.data.ups)}</Typography>
               <Link href="#" onClick={preventDefault}>
                 <ThumbDownIcon color="primary"></ThumbDownIcon>
               </Link>
@@ -71,12 +81,12 @@ const PopularPost = ({ item }) => {
               <Grid container>
                 <Grid item>
                   <Typography variant="body2" color="textSecondary">
-                    <b>{item.data.subreddit_name_prefixed}</b>
+                    <b>{props.item.data.subreddit_name_prefixed}</b>
                   </Typography>
                 </Grid>
                 <Grid item>
                   {
-                    item.data.link_flair_text && chip
+                    props.item.data.link_flair_text && chip
                   }
                 </Grid>
 
@@ -90,14 +100,14 @@ const PopularPost = ({ item }) => {
                 <Grid item>
                   <Box ml={1}>
                     <Typography variant="body2" color="textSecondary">
-                      {item.data.author_fullname}
+                      {props.item.data.author}
                     </Typography>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
             <Typography variant="subtitle1">
-              {item.data.title}
+              {props.item.data.title}
             </Typography>
 
 
@@ -113,7 +123,7 @@ const PopularPost = ({ item }) => {
             <Grid container >
               <Grid item>
                 <Box mr={1}>
-                  <Link href="#" onClick={preventDefault}>
+                  <Link href="" onClick={(e) => commentsClick(e, 'hello')}>
                     <CommentIcon color="primary"></CommentIcon>
                   </Link>
                 </Box>
@@ -121,7 +131,7 @@ const PopularPost = ({ item }) => {
 
               <Grid item>
                 <Box mr={1}>
-                  <Typography variant="subtitle2">{utility.numFormatter(item.data.num_comments)} Comments</Typography>
+                  <Typography variant="subtitle2">{utility.numFormatter(props.item.data.num_comments)} Comments</Typography>
                 </Box>
               </Grid>
 
@@ -143,4 +153,12 @@ const PopularPost = ({ item }) => {
   );
 }
 
-export default PopularPost;
+const mapDispatchToProps = dispatch => {
+  return {
+    loadSubredditPostComments: (subreddit, id) => dispatch(action.loadSubredditPostComments(subreddit, id)),
+    loadSubredditPostView: (data) => dispatch(action.loadSubredditPostView(data))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(PopularPost);
+
