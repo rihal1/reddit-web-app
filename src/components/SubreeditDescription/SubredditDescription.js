@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { AppBar, Toolbar, Paper, Grid, Box } from '@material-ui/core';
 
+//component that describe about the subreddit community in Post page
 const SubredditDescription = ({ info }) => {
 
   const date = new Date(info.created_utc * 1000);

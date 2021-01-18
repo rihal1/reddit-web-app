@@ -6,12 +6,12 @@ const initialState = {
   subredditPosts: [],
   subredditInfo: {}
 };
-
+//sets the about info of the specific to subreddit in posts page
 const loadSubredditInfoSuccess = (state, action) => {
   return utility.updateObject(state, { subredditInfo: action.subredditInfo, error: false, loading: false });
 
 }
-
+//sets the posts specific to subreddit in posts page
 const loadSubredditPostsSuccess = (state, action) => {
   return utility.updateObject(state, { subredditPosts: action.subredditPosts, error: false, loading: false });
 

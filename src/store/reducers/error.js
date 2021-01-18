@@ -9,14 +9,16 @@ const initialState = {
    errorUserPage: false
 };
 
-
+//sets the error as true to the specific page
 const setError = (state, action) => {
    return checkErrorType(state, action, true);
 }
+//sets the error as false to the specific page
 const hideError = (state, action) => {
    return checkErrorType(state, action, false);
 }
 
+//checks if the error has occured in Home/Posts/User page
 const checkErrorType = (state, action, input) => {
    if (action.errorType === ErrorConst.Homepage) {
       return utility.updateObject(state, { errorHomePage: input });

@@ -5,15 +5,17 @@ const initialState = {
   userInfo: {},
   comments: []
 };
-
+//sets the user comments after loggin in
 const loadCommentsSuccess = (state, action) => {
   return utility.updateObject(state, { comments: action.comments });
 
 }
+//sets the user info when logs in
 const loadUserInfoSuccess = (state, action) => {
   return utility.updateObject(state, { userInfo: action.userInfo });
 
 }
+//sets the userinfo as blank after logout
 const logout = (state) => {
   return utility.updateObject(state, { userInfo: {} })
 }

@@ -8,21 +8,22 @@ const initialState = {
   filterType: 'hot',
 };
 
+//sets the trending posts list for Home page
 const loadTrendingSuccess = (state, action) => {
   return utility.updateObject(state, { trending: action.trending });
 
 }
-
+//sets the popular posts list for Home page
 const loadPopularSuccess = (state, action) => {
   return utility.updateObject(state, { popular: action.popular, error: false });
 
 }
-
+//sets the subreddits list for home page
 const loadSubredditsSuccess = (state, action) => {
   return utility.updateObject(state, { subreddits: action.subreddits });
 
 }
-
+//sets filter state for loading popular posts
 const setFilter = (state, action) => {
   return utility.updateObject(state, { filterType: action.filterType })
 }
