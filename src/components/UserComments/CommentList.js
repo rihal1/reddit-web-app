@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Divider, Paper } from '@material-ui/core';
+import { Divider, Paper, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Comment from './Comment';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,7 +9,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    direction:'row',
+    height:'90vh'
   },
 }));
 
@@ -20,6 +22,8 @@ const CommentList = (props) => {
   if (props.loading)
     return <div className={classes.root}><CircularProgress /></div>
   else
+  {
+    if( props.comments.length>0){
     return (
       <Paper>
 
@@ -34,7 +38,15 @@ const CommentList = (props) => {
 
       </Paper>
     )
-
+      }
+      else 
+      return(
+      props.commentType==='U' && <div className={classes.root}>
+        <Typography variant="h4" color="secondary">
+         User has no Comments
+        </Typography>
+        </div>);
+  }
 
 }
 const mapStateToProps = state => {

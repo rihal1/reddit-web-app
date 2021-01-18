@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
 //Single Post Component
 const PopularPost = (props) => {
   const subreddit_name = props.item.data.subreddit_name_prefixed.split('/')[1];
+  let numComments=0;
+  if(Boolean(props.item.data.num_comments)){
+    numComments=props.item.data.num_comments;
+  }
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
 
@@ -125,7 +129,7 @@ const PopularPost = (props) => {
             <Grid container >
               <Grid item>
                 <Box mr={1}>
-                  <Link href="" onClick={(e) => commentsClick(e, 'hello')}>
+                  <Link href="" onClick={(e) => commentsClick(e)}>
                     <CommentIcon color="primary"></CommentIcon>
                   </Link>
                 </Box>
@@ -133,7 +137,7 @@ const PopularPost = (props) => {
 
               <Grid item>
                 <Box mr={1}>
-                  <Typography variant="subtitle2">{utility.numFormatter(props.item.data.num_comments)} Comments</Typography>
+                  <Typography variant="subtitle2">{utility.numFormatter(numComments)} Comments</Typography>
                 </Box>
               </Grid>
 
