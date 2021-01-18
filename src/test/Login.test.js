@@ -1,13 +1,6 @@
-import { render, screen } from '@testing-library/react';
-//import LoginTab from './components/Login/Login';
-//import thunk from 'redux-thunk';
-// import home from './store/reducers/home';
-// import posts from './store/reducers/posts';
-// import loader from './store/reducers/loader';
-import user from './store/reducers/user';
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
-import { LoginTab } from './components/Login/Login'
+import { LoginTab } from '../components/Login/Login'
 
 describe('LoginTab', () => {
     it('renders without crashing given the required props', () => {

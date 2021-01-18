@@ -49,9 +49,8 @@ const UserCardView = ({ userInfo }) => {
           </Box>
           <hr></hr>
           <Box my={2}>
-            <Typography variant="body1"> Welcome to the official Nintendo Reddit profile, home of all things Nintendo!
-            For customer support,
-            please visit support.nintendo.com.
+            <Typography variant="body1"> 
+            {Boolean(userInfo.data.subreddit.public_description)?userInfo.data.subreddit.public_description: "Welcome to my Profile.."}
             </Typography>
           </Box>
         </CardContent>
