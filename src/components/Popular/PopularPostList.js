@@ -33,7 +33,7 @@ const PopularPostList = (props) => {
 
           props.posts.map((item, index) => (
             <React.Fragment>
-              <PopularPost key={item.data.subreddit_name_prefixed.concat(index)} item={item}></PopularPost>
+              <PopularPost key={item.data.subreddit_name_prefixed.concat(index)} item={item} page={props.page}></PopularPost>
             </React.Fragment>
           ))
         }

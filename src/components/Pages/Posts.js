@@ -70,7 +70,7 @@ class Posts extends Component {
                         {!this.props.isCommentClicked &&
                             <React.Fragment>
                                 <FilterComp></FilterComp>
-                                <PopularPostList posts={this.props.subredditPosts}></PopularPostList>
+                                <PopularPostList posts={this.props.subredditPosts} page="posts"></PopularPostList>
                             </React.Fragment>
                         }
                         {this.props.isCommentClicked &&

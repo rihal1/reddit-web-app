@@ -1,20 +1,13 @@
 import React , { Suspense } from 'react';
 import './App.css';
 import Layout from './container/Layout/Layout';
-import TrendingPost from './components/Trending/TrendingPost';
 import {Route, Switch} from 'react-router-dom';
-
-// import Home from './components/Pages/Home';
-import Container from '@material-ui/core/Container';
 import NotFound from './components/Pages/NotFound';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import * as action from '../src/store/actions/index';
-import {connect} from 'react-redux';
-import ErrorBar from './components/ErrorBar/ErrorBar'
 
-
+//Lazy loading implemented with all the 3 pages
 const Home=React.lazy(()=>import('./components/Pages/Home'));
  const Posts=React.lazy(()=>import('./components/Pages/Posts'));
  const User=React.lazy(()=>import('./components/Pages/User'));
@@ -29,15 +22,8 @@ const Home=React.lazy(()=>import('./components/Pages/Home'));
 const App=(props)=>{
   const classes=useStyles();
 
-  // const handleErrorClose=()=>{
-  //   props.hideError();
-  //  // this.setState({open:false});
-  //  }
   return (
     <div className="App">
-      {/* { props.error &&
-    <ErrorBar open={props.error} close={handleErrorClose}></ErrorBar>
-    } */}
     <Layout>
     <Suspense fallback={<Backdrop className={classes.backdrop} open={true}>
         <CircularProgress color="inherit" />
@@ -55,18 +41,6 @@ const App=(props)=>{
     </div>
   );
 }
-// const mapStateToProps= state=>{
-//   return {
-//      //popularPosts:state.homeStore.popular,
-//      //filterType:state.homeStore.filterType,
-//      error:state.errorStore.error
-//   }
-// };
-// const mapDispatchToProps= dispatch=>{
-//   return{
-//      // loadPopular:(param)=>dispatch(action.loadPopular(param)),
-//       hideError:()=>dispatch(action.hideError())
-//   }
-// };
+
 
 export default  App;

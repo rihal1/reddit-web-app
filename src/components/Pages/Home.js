@@ -41,7 +41,7 @@ class Home extends Component {
               <Typography variant="h5" color="textSecondary" style={{ margin: 10 }}>Trending Today</Typography>
               <TrendingPostList trendingPosts={this.props.trendingPosts}></TrendingPostList>
               <FilterComp></FilterComp>
-              <PopularPostList posts={this.props.popularPosts}></PopularPostList>
+              <PopularPostList posts={this.props.popularPosts} page='home'></PopularPostList>
 
             </Grid>
             {/* column for loading top 10 communities */}

@@ -51,8 +51,10 @@ const PopularPost = (props) => {
 
   const commentsClick = (e) => {
     e.preventDefault();
+    if(props.page==='posts'){
     props.loadSubredditPostComments(subreddit_name, props.item.data.id);
     props.loadSubredditPostView(props.item);
+    }
   }
 
   return (
