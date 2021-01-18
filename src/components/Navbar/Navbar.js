@@ -39,10 +39,11 @@ const NavBar = (props) => {
     if (props.userInfo.data) {
       setUserName(props.userInfo.data.subreddit.display_name_prefixed.split('/')[1]);
     }
+
   }, [props.userInfo])
 
   //open the Navbar Menu
-  const handleClick = (event) => {
+  const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
 
   };
@@ -65,9 +66,13 @@ const NavBar = (props) => {
   };
 
   //Login Dialog onclose event on clicking outside anywhere
-  const closeOnClick = () => {
+  const closeDialogOnOutsideClick = () => {
+    if (props.userInfo.error) {
+      props.logout();
+    }
     setLoginModalOpen(false);
   }
+
 
   const classes = useStyles();
   return (
@@ -88,7 +93,7 @@ const NavBar = (props) => {
             <IconButton
               aria-controls="login-menu-appbar"
               aria-haspopup="true"
-              onClick={handleClick}
+              onClick={handleMenuClick}
               color="inherit"
             >
               <PersonIcon></PersonIcon>
@@ -130,7 +135,7 @@ const NavBar = (props) => {
           </div>
         </Toolbar>
       </AppBar>
-      <Dialog open={loginOpen} onClose={closeOnClick} aria-labelledby="login-form">
+      <Dialog open={loginOpen} onClose={closeDialogOnOutsideClick} aria-labelledby="login-form">
         <DialogTitle id="login-form">Login</DialogTitle>
         <DialogContent>
           <Login onClose={closeLogin}></Login>

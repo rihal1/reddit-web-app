@@ -1,8 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActionArea, CardContent, CardMedia } from '@material-ui/core';
-import FaceIcon from '@material-ui/icons/Face';
+import { Card, CardActionArea, CardContent, CardMedia,Box } from '@material-ui/core';
+import ForumIcon from '@material-ui/icons/Forum';
 
 const useStyles = makeStyles({
   root: {
@@ -36,8 +36,11 @@ const TrendingPost = ({ item }) => {
             }
           </Typography>
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: 10 }}>
-            <FaceIcon></FaceIcon>
-            <Typography variant="subtitle2" color="textSecondary">{item.results.data.children[0].data.subreddit_name_prefixed}</Typography>
+            <ForumIcon></ForumIcon>
+            <Box ml={1}>
+            <Typography variant="subtitle2" color="textSecondary">{item.results.data.children[0].data.subreddit_name_prefixed}
+            </Typography>
+            </Box>
           </div>
 
         </CardContent>

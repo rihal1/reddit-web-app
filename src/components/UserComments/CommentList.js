@@ -25,8 +25,8 @@ const CommentList = (props) => {
 
         {
           props.comments.map((item, index) => (
-            <React.Fragment>
-              <Comment key={item.data.id} item={item.data} commentType={props.commentType}></Comment>
+            <React.Fragment key={item.data.id}>
+              <Comment item={item.data} commentType={props.commentType}></Comment>
               <Divider></Divider>
             </React.Fragment>
           ))

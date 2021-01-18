@@ -123,12 +123,10 @@ const FilterComp = (props) => {
     )
 }
 
-//maps the filterType stste to component property
+//maps the filterType state to component property
 const mapStateToProps = state => {
     return {
         filterType: state.homeStore.filterType,
-
-
     }
 };
 //maps the setFilter action to props
