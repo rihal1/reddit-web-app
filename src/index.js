@@ -44,13 +44,12 @@ const store=createStore(rootReducer,composeEnhancers(applyMiddleware(logging,thu
 // 5. New state is passed into the React app via prop
 
 ReactDOM.render(
-  <React.StrictMode>
     <Router>
     <Provider store={store}>
      <App />
     </Provider>
     </Router>
-  </React.StrictMode>,
+    ,
   document.getElementById('root')
 );
 

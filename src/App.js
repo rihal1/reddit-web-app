@@ -25,9 +25,9 @@ const App=(props)=>{
   return (
     <div className="App">
     <Layout>
-    <Suspense fallback={<Backdrop className={classes.backdrop} open={true}>
+    <Suspense fallback={<div><Backdrop className={classes.backdrop} open={true}>
         <CircularProgress color="inherit" />
-      </Backdrop>}>
+      </Backdrop></div>}>
     <Switch>
     <Route path='/' exact component={Home}></Route>
     <Route path='/reddit' exact component={Home}></Route>

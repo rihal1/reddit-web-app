@@ -93,8 +93,8 @@ const FilterComp = (props) => {
                     return (item.label === 'controversial' ?
 
 
-                        <Box mx={1}>
-                            <Button key={item.label}
+                        <Box mx={1} key={item.label}>
+                            <Button 
                                 variant={item.selected ? 'contained' : 'outlined'}
                                 className={classes.chip}
                                 startIcon={<Avatar className={classes.avatar}>{item.avatar}</Avatar>}
@@ -104,8 +104,8 @@ const FilterComp = (props) => {
                             </Button>
                         </Box>
                         :
-                        <Box mx={1}>
-                            <Button key={item.label}
+                        <Box mx={1} key={item.label}>
+                            <Button 
                                 variant={item.selected ? 'contained' : 'outlined'}
                                 className={classes.chip}
                                 startIcon={<Avatar className={classes.avatar}>{item.avatar}</Avatar>}

@@ -26,8 +26,8 @@ const SubRedditList = (props) => {
 
                 {
                     props.subRedditList.map((item, index) => (
-                        <Paper>
-                            <SubReddit key={item.data.display_name_prefixed.concat(index)} item={item}></SubReddit>
+                        <Paper key={item.data.display_name_prefixed.concat(index)} >
+                            <SubReddit item={item}></SubReddit>
                             <Divider></Divider>
                         </Paper>
                     ))
